@@ -1,13 +1,13 @@
 export const signUpFormControls = [
     {
-        name : 'username',
+        name : 'userName',
         label : 'Username',
         placeholder : 'Enter the username',
         type : 'text',
         componentType : 'input'
     },
     {
-        name : 'email',
+        name : 'userEmail',
         label : 'Email',
         placeholder : 'Enter the email',
         type : 'email',
@@ -21,7 +21,7 @@ export const signUpFormControls = [
         componentType : 'input'
     },
     {
-        name: 'course',
+        name: 'userCourse',
         label: 'Course',
         placeholder: 'Select your course',
         componentType: 'radio-group',
@@ -37,7 +37,7 @@ export const signUpFormControls = [
 
 export const signInFormControls = [
     {
-        name : 'email',
+        name : 'userEmail',
         label : 'Email',
         placeholder : 'Enter the email',
         type : 'email',
@@ -51,3 +51,15 @@ export const signInFormControls = [
         componentType : 'input'
     }
 ]
+
+export const initialSignInFormData ={
+    userEmail : "",
+    password : "",
+}
+
+export const initialSignUpFormData ={
+    userName : "",
+    userEmail : "",
+    password : "",
+    userCourse : ""
+}

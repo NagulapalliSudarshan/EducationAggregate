@@ -6,15 +6,10 @@ import { Textarea } from '../ui/textarea'
 import { RadioGroup,RadioGroupItem } from '../ui/radio-group'
 
 const FormControls = ({ formControls = [], formData, setFormData }) => {
-    const handleInputChange = (name, value) => {
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
 
     const renderComponentByType = (getControlItem) => {
-        let element = null        
+        let element = null
+        const currentControlItemValue = formData[getControlItem.name] || ""           
         
         switch(getControlItem.componentType){
             case 'input':
@@ -23,10 +18,20 @@ const FormControls = ({ formControls = [], formData, setFormData }) => {
                     name={getControlItem.name}
                     placeholder={getControlItem.placeholder}
                     type={getControlItem.type}
+                    value={currentControlItemValue}
+                    onChange={e=>setFormData({
+                        ...formData,[getControlItem.name] : e.target.value
+                    })}
                 />
                 break;
+
             case 'select':
-                element = <Select>
+                element = <Select 
+                        onValueChange={v=>setFormData({
+                            ...formData,[getControlItem.name] : v
+                        })}
+                        value={currentControlItemValue}
+                    >
                     <SelectTrigger className='w-full'>
                             <SelectValue placeholder={getControlItem.label}/>
                     </SelectTrigger>
@@ -44,19 +49,27 @@ const FormControls = ({ formControls = [], formData, setFormData }) => {
                     </SelectContent>
                 </Select>
                 break;
+
             case 'textarea':
                 element = <Textarea 
                     id={getControlItem.name}
                     name={getControlItem.name}
                     placeholder={getControlItem.placeholder}
+                    value={currentControlItemValue}
+                    onChange={e=>setFormData({
+                        ...formData,[getControlItem.name] : e.target.value
+                    })}
                 />
                 break;
+
             case 'radio-group':
                 element = 
                     <RadioGroup
                         className="flex flex-col gap-2"
-                        
-                        onValueChange={(value) => handleInputChange(getControlItem.name, value)}
+                        onValueChange={v=>setFormData({
+                            ...formData,[getControlItem.name] : v
+                        })}
+                        value={currentControlItemValue}    
                     >
                         {getControlItem.options?.map((optionItem) => (
                             <div key={optionItem.value} className="flex items-center gap-2">
@@ -71,12 +84,18 @@ const FormControls = ({ formControls = [], formData, setFormData }) => {
                         ))}
                     </RadioGroup>
                 break;
+                
             default:
                 element = <Input 
                     id={getControlItem.name}
                     name={getControlItem.name}
                     placeholder={getControlItem.placeholder}
                     type={getControlItem.type}
+                    value={currentControlItemValue}
+                    onChange={e=>setFormData({
+                        ...formData,[getControlItem.name] : e.target.value
+                    })}
+
                 />
         }
         return element

@@ -1,7 +1,16 @@
-import { createContext } from "react";
+import { initialSignInFormData, initialSignUpFormData } from "@/config";
+import { createContext,useState } from "react";
 
 export const AuthContext = createContext(null);
 
 export default function AuthProvider({children}){
-    return <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>
+    const [signinFormData, setSignInFormData] = useState(initialSignInFormData);
+    const [signupFormData, setSignUpFormData] = useState(initialSignUpFormData);
+    return <AuthContext.Provider value={{ 
+        signinFormData, 
+        setSignInFormData, 
+        signupFormData, 
+        setSignUpFormData }}>
+        {children}
+    </AuthContext.Provider>
 }
