@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 const AuthPage = () => {
   const [activeTab,setActiveTab] = useState('signin');
-  const { signinFormData, setSignInFormData, signupFormData, setSignUpFormData } = useContext(AuthContext)
+  const { signinFormData, setSignInFormData, signupFormData, setSignUpFormData,handleRegisterUser } = useContext(AuthContext)
 
   const handleTabChange = val => {
     setActiveTab(val)
@@ -67,7 +67,7 @@ const AuthPage = () => {
                     formData={signupFormData}
                     setFormData={setSignUpFormData}
                     isButtonDisabled={!checkSignUpValidity()}
-                    // handleSubmit={}
+                    handleSubmit={handleRegisterUser}
                   />
                 </CardContent>
               </Card>
